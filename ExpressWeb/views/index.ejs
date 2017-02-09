@@ -1,0 +1,133 @@
+<html lang="en">
+<head>
+   
+<title>The HTML5 Herald</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <h1>Test Execution</h1>
+
+
+
+
+
+ <!-- Test Data Search Fields-->
+<form action="/executeTest" method="post"> 
+<div class="container">
+    <div class="panel panel-primary">
+
+        <div class="panel-body">
+            <div class="form-group">
+                 <div class="col-sm-6">
+                  <label for="AutomationType" class="col-sm-6 control-label">Automation Type</label>                 
+                      <select class="form-control" id="automationType" onchange="this.value">
+                          <option>All</option>
+                          <option>UI</option>
+                          <option>DDS</option>
+                          <option>Server</option>
+                      </select>   
+                  <label for="AutomationCategory" class="col-sm-6 control-label">Automation Category</label>
+                      <select class="form-control" id="automationCategoryOne">
+                          <option>All</option>
+                          <option>UI-Wingman</option>
+                          <option>UI-Axon</option>
+                          <option>UI-Something</option>
+                      </select> 
+                  </div>
+            </div>
+             <div class="form-group">
+              <div class="col-sm-6">
+              <label for="categorythree" class="col-sm-6 control-label">Automation Category 2</label>                 
+                <select class="form-control" id="automationCategoryTwo">
+                  <option>All</option>
+                  <option>UI</option>
+                  <option>DDS</option>
+                  <option>Server</option>
+              </select> 
+              <label for="categoryfour" class="col-sm-6 control-label">Automation Category 3</label>              
+               <select class="form-control" id="automationCategoryThree">
+                  <option>All</option>
+                  <option>UI</option>
+                  <option>DDS</option>
+                  <option>Server</option>
+              </select> 
+              </div>
+              </div>
+            <input type="button" id="btnSearch" class="btn btn-primary " value="Search" />  
+            
+        </div>
+    </div>
+</div>
+</form>
+ <!-- Test Data Search Fields End-->
+
+ 
+<!--   <ul>
+    <% for(var i = 0; i < items.length; i++){ %>
+    <li><%= items[i].desc %></li>
+      <% } %>
+  </ul>
+
+<form action="/add" method="post">
+    <input type="text" name="newItem"> </input>
+    <input type="submit">  </input>
+</form>
+ -->
+
+
+
+  
+<!--  @Test Automation  <%= new Date() %>   -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+
+<script>
+ $("#automationType").change(function() {
+
+  alert( "Handler for .change() called." );
+        var selectedItem = $(this).val();
+        alert(selectedItem);
+        var ddlService = $("#automationCategoryOne");
+        $("#loading").show();
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: '/getCategory',
+            data: { "automationType": selectedItem },
+            success:  function(data) {
+                alert(data);
+                ddlService.html('');
+                
+                $.each(data, function (index, item) {
+                  // $.each(data[index], function (key, value) {
+                  // alert(item.id);
+                  // alert(item.desc);
+                  // // alert(value);   
+                    ddlService.append($('<option></option>').val(item.id).html(item.desc));
+                  // });    
+                });
+                $("#loading").hide();
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to retrieve.');
+
+            }
+        });
+    });
+ </script>
+<!--  <script src="http://code.jquery.com/jquery-latest.js"></script>-->
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
